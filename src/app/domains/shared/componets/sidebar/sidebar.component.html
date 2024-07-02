@@ -1,10 +1,10 @@
-<ul>
+<ul class="flex flex-col font-medium text-gray-700">
     @for (link of links; track $index) 
     {
-        <li class="font-semibold ">
-            <a routerLink="boards">
-                    
-                <span>faTrello</span>
+        <li>
+            <a routerLink="boards" class="block py-1">
+                <fa-icon [icon]="link.icon" class="mr-2" ></fa-icon>
+                <span>{{link.title}}</span>
             </a>
         </li>
     }    

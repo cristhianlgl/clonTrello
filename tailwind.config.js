@@ -11,6 +11,11 @@ module.exports = {
       {
         primary : colors.blue,
         success: colors.green 
+      },
+      container: {
+        screens:{
+          xl:'1024px'
+        }
       }
     },
   },
