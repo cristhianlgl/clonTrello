@@ -9,11 +9,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-
-export interface ToDo {
-  id: string;
-  title: string;
-}
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-board',
@@ -23,17 +20,21 @@ export interface ToDo {
     CdkDrag,
     CdkDropList,
     CdkDropListGroup,
-    NgFor
+    NgFor,
+    FontAwesomeModule
   ],
   styleUrls: ['./board.component.css'],
   templateUrl: './board.component.html'
 })
 export class BoardComponent {
 
+  faPlus = faPlus;
   panels = [
-    { id: 'panel-1', title: 'To do', data: ['Get to work', 'Pick up groceries', 'Fall asleep'] },
-    { id: 'panel-2', title: 'Doing', data: ['Go home', 'Check e-mail', 'Walk dog'] },
-    { id: 'panel-3', title: 'Done', data: ['Get up', 'Brush teeth', 'Take a shower'] }
+    { title: 'To do', data: ['Get to work', 'Pick up groceries', 'Fall asleep'] },
+    { title: 'Doing', data: ['Go home', 'Check e-mail', 'Walk dog'] },
+    { title: 'Pending', data: [] },
+    { title: 'Done', data: ['Get up', 'Brush teeth', 'Take a shower'] },
+
   ];
 
   drop(event: CdkDragDrop<any>) {
@@ -47,6 +48,15 @@ export class BoardComponent {
         event.currentIndex
       );
     }
-
   }
+
+  dropHorizontal(event: CdkDragDrop<any>) {
+    console.log(event)
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  }
+
+  addPanel(title:string){
+    this.panels.push({ title: title, data:[]})
+  }
+
 }

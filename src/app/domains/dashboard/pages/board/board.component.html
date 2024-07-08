@@ -1,25 +1,35 @@
 <div class="flex flex-col h-screen">
     <app-navbar></app-navbar>
-    <div class="w-full grow bg-sky-600 px-4 pb-4" cdkDropListGroup>
-        <div>
-            <h2 class="text-xl font-bold text-white my-4">Demo Board</h2>
-        </div>
-        <div class="flex items-start w-full h-full">
-            <div *ngFor="let panel of panels" class="rounded bg-gray-200 w-72 p-2 mr-3">
-                <div class="flex justify-between py-1">
-                    <h3 class="text-sm font-bold ml-2">{{panel.title}}</h3>
-                </div>
-                <div cdkDropList                  
-                [cdkDropListData]="panel.data"
-                (cdkDropListDropped)="drop($event)" class="text-sm mt-2 min-h-10">
-                    <div 
-                        *ngFor="let item of panel.data"
-                        cdkDrag                        
-                        class=" example-box bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
-                        {{item}}
+    <div class="w-full grow bg-sky-600 px-4 pb-4">
+        <div class="flex flex-col h-full">
+            <div>
+                <h2 class="text-xl font-bold text-white my-4">Demo Board</h2>
+            </div>
+            <div class="flex grow overflow-x-scroll h-full" cdkDropList [cdkDropListData]="panels"
+                cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropHorizontal($event)">
+    
+                <div class="flex items-start h-full" cdkDropListGroup>
+                    <div *ngFor="let panel of panels" class="rounded bg-gray-200 w-72 p-2 mr-3 shrink-0" cdkDrag>
+                        <div class="flex justify-between py-1">
+                            <h3 class="text-sm font-bold ml-2">{{panel.title}}</h3>
+                        </div>
+                        <div class="text-sm mt-2 min-h-4" cdkDropList [cdkDropListData]="panel.data"
+                            (cdkDropListDropped)="drop($event)">
+                            <div *ngFor="let item of panel.data" cdkDrag
+                                class=" example-box bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
+                                {{item}}
+                            </div>
+                        </div>
+                        <button class="p-2 mt-2 hover:bg-gray-400 rounded w-full active:bg-gray-500">
+                            <fa-icon [icon]="faPlus" class="pe-2"></fa-icon>Add To Do</button>
                     </div>
+                    <button class="bg-white/30 w-56 h-10 rounded hover:bg-white/20 text-white"
+                    (click)="addPanel('New Panel')">
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                    <span> Add Panel</span></button>
                 </div>
-            </div>                     
+    
+            </div>
         </div>
     </div>
 </div>
