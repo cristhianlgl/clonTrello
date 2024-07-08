@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NavbarComponent } from '@/shared/componets/navbar/navbar.component';
 import { NgFor } from '@angular/common';
 import {
@@ -11,6 +11,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Dialog } from '@angular/cdk/dialog';
+import { TodoDialogComponent } from '@/dashboard/components/todo-dialog/todo-dialog.component';
 
 @Component({
   selector: 'app-board',
@@ -27,6 +29,10 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './board.component.html'
 })
 export class BoardComponent {
+
+  constructor(public dialog: Dialog) {
+        
+  }
 
   faPlus = faPlus;
   panels = [
@@ -57,6 +63,18 @@ export class BoardComponent {
 
   addPanel(title:string){
     this.panels.push({ title: title, data:[]})
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open<string>(TodoDialogComponent, {
+      width: '250px',
+      data: {title: '', data: ''},
+    });
+
+    // dialogRef.closed.subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   this.animal = result;
+    // });
   }
 
 }

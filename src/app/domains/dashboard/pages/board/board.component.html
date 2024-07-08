@@ -7,14 +7,26 @@
             </div>
             <div class="flex grow overflow-x-scroll h-full" cdkDropList [cdkDropListData]="panels"
                 cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropHorizontal($event)">
-    
+
                 <div class="flex items-start h-full" cdkDropListGroup>
                     <div *ngFor="let panel of panels" class="rounded bg-gray-200 w-72 p-2 mr-3 shrink-0" cdkDrag>
                         <div class="flex justify-between py-1">
                             <h3 class="text-sm font-bold ml-2">{{panel.title}}</h3>
+
+                            <button class="">
+                                <span data-testid="OverflowMenuHorizontalIcon" aria-hidden="true" class="css-snhnyn"
+                                    style="--icon-primary-color: currentColor; --icon-secondary-color: inherit;"><svg
+                                        width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M5 14C6.10457 14 7 13.1046 7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14ZM21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10C20.1046 10 21 10.8954 21 12Z"
+                                            fill="currentColor"></path>
+                                    </svg></span>
+                            </button>
                         </div>
                         <div class="text-sm mt-2 min-h-4" cdkDropList [cdkDropListData]="panel.data"
-                            (cdkDropListDropped)="drop($event)">
+                            (cdkDropListDropped)="drop($event)"
+                            (click)="openDialog()">
                             <div *ngFor="let item of panel.data" cdkDrag
                                 class=" example-box bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
                                 {{item}}
@@ -24,11 +36,11 @@
                             <fa-icon [icon]="faPlus" class="pe-2"></fa-icon>Add To Do</button>
                     </div>
                     <button class="bg-white/30 w-56 h-10 rounded hover:bg-white/20 text-white"
-                    (click)="addPanel('New Panel')">
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                    <span> Add Panel</span></button>
+                        (click)="addPanel('New Panel')">
+                        <fa-icon [icon]="faPlus"></fa-icon>
+                        <span> Add Panel</span></button>
                 </div>
-    
+
             </div>
         </div>
     </div>
