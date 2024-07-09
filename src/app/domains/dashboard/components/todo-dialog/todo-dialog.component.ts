@@ -1,18 +1,32 @@
 import { Component, Inject } from '@angular/core';
-import {Dialog,DialogRef, DIALOG_DATA, DialogModule} from '@angular/cdk/dialog';
+import {DialogRef, DIALOG_DATA, DialogModule} from '@angular/cdk/dialog';
+import { BtnComponent } from '@/shared/componets/btn/btn.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faClose, faCheckToSlot, faBars, faClock, faCheckSquare, faTag, faUser } from '@fortawesome/free-solid-svg-icons';
+import { TaskModel } from '@/models/task.model';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-todo-dialog',
   standalone: true,
-  imports: [DialogModule],
+  imports: [DialogModule, BtnComponent, FontAwesomeModule],
   templateUrl: './todo-dialog.component.html'
 })
 export class TodoDialogComponent {
-  constructor(  public dialogRef: DialogRef<string>,
-    @Inject(DIALOG_DATA) public data: DialogData, ) {}
+
+   faClose = faClose;
+   faCheckToSlot = faCheckToSlot;
+   faBars = faBars;
+   faClock = faClock;
+   faCheckSquare = faCheckSquare;
+   faTag = faTag;
+   faUser = faUser;
+  
+  constructor(  
+    public dialogRef: DialogRef<string>,
+    @Inject(DIALOG_DATA) public data: {task:TaskModel, titlePanel: string}, ) {}
+
+  close(){
+    this.dialogRef.close();
+  }
 }
