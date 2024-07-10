@@ -83,15 +83,15 @@ export class BoardComponent {
 
   openDialog(task: TaskModel, titlePanel: string): void {
     const dialogRef = this.dialog.open<string>(TodoDialogComponent, {
-      width: '500px',
+      minWidth: '500px',
+      maxWidth: '50%',
       autoFocus: 'false',
       data: { task, titlePanel },
     });
 
-    // dialogRef.closed.subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
+    dialogRef.closed.subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
   }
 
 }

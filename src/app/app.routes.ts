@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './domains/login/pages/login/login.component';
 import { BoardsComponent } from '@/dashboard/pages/boards/boards.component';
 import { BoardComponent } from '@/dashboard/pages/board/board.component';
+import { ScrollComponent } from '@/dashboard/pages/scroll/scroll.component';
 
 export const routes: Routes = [
   {
@@ -15,5 +16,9 @@ export const routes: Routes = [
   {
     path:'board',
     component: BoardComponent
+  },
+  {
+    path:'scroll',
+    component: ScrollComponent
   }
 ];
