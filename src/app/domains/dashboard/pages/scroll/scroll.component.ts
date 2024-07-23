@@ -1,5 +1,5 @@
 import { NavbarComponent } from '@/shared/componets/navbar/navbar.component';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ProductService } from '@/services/product.service';
 import { Product } from '@/models/product.model';
@@ -13,17 +13,13 @@ import { Product } from '@/models/product.model';
 })
 export class ScrollComponent {
   productServices = inject(ProductService);
-  products: Product[] = []
-
-  constructor(private cdr: ChangeDetectorRef) {
-  }
+  products = signal<Product[]>([]);
 
   ngOnInit() {
     this.productServices.getProduct().subscribe({
       next: (data) => {
-        this.products.push(...data);
-      },
-      complete:() => this.cdr.markForCheck()
+        this.products.set(data);
+      }
     })    
   }
 }

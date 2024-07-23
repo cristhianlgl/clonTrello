@@ -5,7 +5,7 @@
             <div class="w-1/2">
                 <h1 class="text-white">List A (normal scroll) </h1>
                 <div class="h-64 w-full border overflow-y-scroll bg-white text-slate-600 rounded mt-2 px-4">
-                    @for (product of products; track $index)
+                    @for (product of products(); track $index)
                     {
                     <div class="flex items-center space-x-4 mt-4">
                         <img class="w-10 h-10 rounded" [src]="product.images[0]" alt="">
@@ -19,20 +19,16 @@
             </div>
             <div class="w-1/2">
                 <h1 class="text-white">List B (virtual scroll) </h1>
-                <!-- <cdk-virtual-scroll-viewport itemSize="50"
+                <cdk-virtual-scroll-viewport itemSize="50"
                     class="h-64 w-full border overflow-y-scroll bg-white text-slate-600 rounded mt-2 px-4">
-                    <div *cdkVirtualFor="let product of products" class="flex items-center space-x-4 mt-4">
+                    <div *cdkVirtualFor="let product of products()" class="flex items-center space-x-4 mt-4">
                         <img class="w-10 h-10 rounded" [src]="product.images[0]" alt="">
                         <div class="space-y-1 font-medium">
                             <div>{{ product.title }}</div>
                             <div class="text-sm text-gray-500">${{product.price}}</div>
                         </div>
                     </div>
-                </cdk-virtual-scroll-viewport> -->
-                <cdk-virtual-scroll-viewport itemSize="10"
-                class="h-64 w-full border overflow-y-scroll bg-white text-slate-600 rounded mt-2 px-4" >
-                    <div *cdkVirtualFor="let item of products" class="example-item">{{item.title}}</div>
-                  </cdk-virtual-scroll-viewport>
+                </cdk-virtual-scroll-viewport>
             </div>
         </div>
     </div>
