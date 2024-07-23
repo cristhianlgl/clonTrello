@@ -4,7 +4,7 @@
         <h1 class="text-slate-800 px-2 my-2 text-2xl">table</h1>
         <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-        cdk-table [dataSource]="products()">
+        cdk-table [dataSource]="productsDataSource">
           <tr cdk-header-row *cdkHeaderRowDef="columns" 
           class="text-xs text-gray-700 uppercase bg-gray-50"></tr>
           <tr class="bg-white text-lg border-b"
@@ -16,7 +16,7 @@
           <ng-container cdkColumnDef="price">
             <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Price</th>
             <td class="px-6 py-4" cdk-cell *cdkCellDef="let row">{{ row.price }}</td>
-            <th class="px-6 py-3" cdk-footer-cell *cdkFooterCellDef>{{total()}}</th>
+            <th class="px-6 py-3" cdk-footer-cell *cdkFooterCellDef>{{productsDataSource.getTotal()}}</th>
           </ng-container>
     
           <!-- Id Column -->
