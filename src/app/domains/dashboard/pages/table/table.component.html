@@ -8,7 +8,7 @@
           <tr cdk-header-row *cdkHeaderRowDef="columns" 
           class="text-xs text-gray-700 uppercase bg-gray-50"></tr>
           <tr class="bg-white text-lg border-b"
-            [ngClass]="{'bg-red-200': row.title[0] === 'Z'}"
+            [ngClass]="{'bg-red-200': row.title[0] === 'Z' && row.price >= 100}"
           cdk-row *cdkRowDef="let row; columns: columns"></tr>
           <tr cdk-footer-row *cdkFooterRowDef="columns" 
           class="text-lg text-gray-700 uppercase bg-gray-500"></tr>
@@ -39,6 +39,14 @@
           <ng-container cdkColumnDef="Name">
             <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>title</th>
             <td class="px-6 py-4" cdk-cell *cdkCellDef="let row">{{ row.title }}</td>
+            <th class="px-6 py-3" cdk-footer-cell *cdkFooterCellDef></th>
+          </ng-container>
+
+          <ng-container cdkColumnDef="action">
+            <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>action</th>
+            <td class="px-6 py-4" cdk-cell *cdkCellDef="let row">
+                <app-btn color="sky" (click)="updateProduct(row)" >Update</app-btn>
+            </td>
             <th class="px-6 py-3" cdk-footer-cell *cdkFooterCellDef></th>
           </ng-container>
         </table>
