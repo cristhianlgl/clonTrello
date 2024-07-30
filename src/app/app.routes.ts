@@ -1,15 +1,44 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './domains/login/pages/login/login.component';
 import { BoardsComponent } from '@/dashboard/pages/boards/boards.component';
 import { BoardComponent } from '@/dashboard/pages/board/board.component';
 import { ScrollComponent } from '@/dashboard/pages/scroll/scroll.component';
 import { TableComponent } from '@/dashboard/pages/table/table.component';
 import { LayoutComponent } from '@/layout/layout/layout.component';
+import { LoginComponent } from '@/auth/pages/login/login.component';
+import { ForgotPasswordComponent } from '@/auth/pages/forgot-password/forgot-password.component';
+import { RegisterComponent } from '@/auth/pages/register/register.component';
+import { RecoveryComponent } from '@/auth/pages/recovery/recovery.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: LoginComponent
+    children: [
+      {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        title: 'Login'
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent,
+        title: 'Forgot Password'
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        title: 'Register'
+      },
+      {
+        path: 'recovery',
+        component: RecoveryComponent,
+        title: 'Recovery'
+      }
+    ]
   },
   {
     path: 'app',
