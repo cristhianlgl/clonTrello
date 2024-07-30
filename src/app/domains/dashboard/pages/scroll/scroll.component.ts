@@ -1,4 +1,3 @@
-import { NavbarComponent } from '@/shared/componets/navbar/navbar.component';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ProductService } from '@/services/product.service';
@@ -7,7 +6,7 @@ import { Product } from '@/models/product.model';
 @Component({
   selector: 'app-scroll',
   standalone: true,
-  imports: [NavbarComponent, ScrollingModule],
+  imports: [ScrollingModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './scroll.component.html'
 })

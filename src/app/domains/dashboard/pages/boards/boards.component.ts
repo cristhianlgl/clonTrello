@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
-import { NavbarComponent } from '@/shared/componets/navbar/navbar.component';
 import { SidebarComponent } from '@/shared/componets/sidebar/sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClock, faAngleUp, faAngleDown,faGear, faUsers, faBorderAll, faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +9,7 @@ import { faTrello } from '@fortawesome/free-brands-svg-icons';
 @Component({
   selector: 'app-boards',
   standalone: true,
-  imports: [NavbarComponent, SidebarComponent, FontAwesomeModule, CdkAccordionModule, NgClass],
+  imports: [SidebarComponent, FontAwesomeModule, CdkAccordionModule, NgClass],
   templateUrl: './boards.component.html'
 })
 

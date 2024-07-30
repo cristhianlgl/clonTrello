@@ -1,5 +1,4 @@
 import { ProductService } from '@/services/product.service';
-import { NavbarComponent } from '@/shared/componets/navbar/navbar.component';
 import { Component, inject } from '@angular/core';
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgClass } from '@angular/common';
@@ -12,7 +11,7 @@ import { debounceTime } from 'rxjs';
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [NavbarComponent, CdkTableModule, NgClass, BtnComponent, ReactiveFormsModule],
+  imports: [CdkTableModule, NgClass, BtnComponent, ReactiveFormsModule],
   templateUrl: './table.component.html'
 })
 export class TableComponent {

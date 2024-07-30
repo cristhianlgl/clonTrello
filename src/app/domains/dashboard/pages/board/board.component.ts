@@ -1,5 +1,4 @@
-import { Component, Inject } from '@angular/core';
-import { NavbarComponent } from '@/shared/componets/navbar/navbar.component';
+import { Component} from '@angular/core';
 import { NgFor } from '@angular/common';
 import {
   CdkDragDrop,
@@ -20,7 +19,6 @@ import { PanelModel } from '@/models/panel.model';
   selector: 'app-board',
   standalone: true,
   imports: [
-    NavbarComponent,
     CdkDrag,
     CdkDropList,
     CdkDropListGroup,
