@@ -54,6 +54,11 @@
         This field should be greater than 6 characters
       </p>
     </div>
+    @if(status === 'failed'){
+      <p class="font-medium text-red-500 text-xs mt-1 ml-1">
+        The credentials are not valid
+      </p>
+    }
   </div>
   <div>
     <app-btn
