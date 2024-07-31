@@ -51,11 +51,11 @@ export class RegisterFormComponent {
     this.status = 'loading';
     const { name, email, password } = this.form.getRawValue();
     this.authService
-      .register(name, email, password)
+      .registerAndLogin(name, email, password)
       .subscribe({
         next:() => {
             this.status = 'success';
-            this.router.navigate(['/login']);
+            this.router.navigate(['/app/boards']);
         },
         error: (error) => {
           if(error.error.code === "SQLITE_CONSTRAINT_UNIQUE"){
