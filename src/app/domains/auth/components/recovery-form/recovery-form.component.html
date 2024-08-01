@@ -70,6 +70,14 @@
       The password are not the same
     </p>
   </div>
+  @if(status === 'failed'){
+    @for (message of messages; track $index) {
+      <p class="font-medium text-red-500 text-xs mt-1 ml-1">
+      {{message}}
+    </p>
+    }
+
+  }
   <div>
     <app-btn
       typeBtn="submit"

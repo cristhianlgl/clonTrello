@@ -24,6 +24,14 @@ export class AuthService {
     )
   }
 
+  recovery(email: string) {
+    return this.http.post(`${environment.API_URL}/auth/recovery`, { email })
+  }
+
+  changePassword(token: string, newPassword: string) {
+    return this.http.post(`${environment.API_URL}/auth/change-password`, { token, newPassword })
+  }
+
   isAvailable(email: string) {
     return this.http.post<{ isAvailable: Boolean }>(`${environment.API_URL}/auth/is-available`, { email })
   }
