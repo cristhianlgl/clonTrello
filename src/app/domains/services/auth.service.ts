@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { switchMap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
+import { TokenService } from './token.service';
+import { Token } from '@/models/token.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenService
+  ) { }
 
   login(email: string, password: string) {
-    return this.http.post(`${environment.API_URL}/auth/login`, { email, password })
+    return this.http
+      .post<Token>(`${environment.API_URL}/auth/login`, { email, password })
+      .pipe(
+        tap((response) => this.tokenService.save(response.access_token))
+      )
   }
 
   register(name: string, email: string, password: string) {

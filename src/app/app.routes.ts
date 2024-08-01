@@ -8,6 +8,7 @@ import { LoginComponent } from '@/auth/pages/login/login.component';
 import { ForgotPasswordComponent } from '@/auth/pages/forgot-password/forgot-password.component';
 import { RegisterComponent } from '@/auth/pages/register/register.component';
 import { RecoveryComponent } from '@/auth/pages/recovery/recovery.component';
+import { authGuard } from '@/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,7 @@ export const routes: Routes = [
   },
   {
     path: 'app',
+    canActivate: [authGuard],
     component: LayoutComponent,
     children:[
       {
