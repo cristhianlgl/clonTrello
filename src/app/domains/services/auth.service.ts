@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { switchMap, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { Token } from '@/models/token.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) { }
 
   login(email: string, password: string) {
@@ -21,6 +23,12 @@ export class AuthService {
       .pipe(
         tap((response) => this.tokenService.save(response.access_token))
       )
+  }
+
+  logout(){
+    console.log(' --- -- --logout')
+    this.tokenService.remove();
+    this.router.navigate(['/login']);
   }
 
   register(name: string, email: string, password: string) {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getCookie, setCookie, removeCookie } from 'typescript-cookie';
 
 @Injectable({
   providedIn: 'root'
@@ -7,17 +8,17 @@ export class TokenService {
 
   constructor() { }
 
-  private keyName:string = 'token'
+  private keyName:string = 'token-trello'
 
   save(token: string){
-    localStorage.setItem(this.keyName,token);
+    setCookie(this.keyName,token, { expires: 365, path: '/'});
   }
 
   get(){
-    return localStorage.getItem(this.keyName)
+    return getCookie(this.keyName)
   }
 
   remove(){
-    localStorage.removeItem(this.keyName)
+    removeCookie(this.keyName)
   }
 }
