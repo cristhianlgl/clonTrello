@@ -26,7 +26,6 @@ export class AuthService {
   }
 
   logout(){
-    console.log(' --- -- --logout')
     this.tokenService.remove();
     this.router.navigate(['/login']);
   }

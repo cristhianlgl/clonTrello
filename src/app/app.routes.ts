@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from '@/auth/pages/forgot-password/forgot-pas
 import { RegisterComponent } from '@/auth/pages/register/register.component';
 import { RecoveryComponent } from '@/auth/pages/recovery/recovery.component';
 import { authGuard, redirectGuard } from '@/guards/auth.guard';
+import { UsersTableComponent } from '@/users/pages/users-table/users-table.component';
 
 export const routes: Routes = [
   {
@@ -67,6 +68,10 @@ export const routes: Routes = [
       {
         path: 'scroll',
         component: ScrollComponent
+      },
+      {
+        path: 'users',
+        component: UsersTableComponent
       }
     ]
   }
