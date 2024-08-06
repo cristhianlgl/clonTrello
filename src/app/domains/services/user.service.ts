@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '@/models/user.model';
 import { TokenService } from './token.service';
 import { environment } from '../../../environments/environment';
+import { checkToken } from '@/interceptors/token.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,6 @@ export class UserService {
 
   getAll() {
     return this.httpClient
-      .get<User[]>(`${environment.API_URL}/users`,
-        { headers: { Authorization: `Bearer ${this.token}` } })
+      .get<User[]>(`${environment.API_URL}/users`, {context: checkToken()})
   }
 }
