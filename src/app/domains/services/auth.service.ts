@@ -5,6 +5,7 @@ import { switchMap, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { Token } from '@/models/token.model';
 import { Router } from '@angular/router';
+import { User } from '@/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,11 @@ export class AuthService {
 
   isAvailable(email: string) {
     return this.http.post<{ isAvailable: Boolean }>(`${environment.API_URL}/auth/is-available`, { email })
+  }
+
+  getProfile(){
+    return this.http
+      .get<User>(`${environment.API_URL}/auth/profile`,
+        { headers: { Authorization: `Bearer ${this.tokenService.get()}` } })
   }
 }
