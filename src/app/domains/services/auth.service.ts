@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { switchMap, tap } from 'rxjs';
+import { BehaviorSubject, switchMap, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { Token } from '@/models/token.model';
 import { Router } from '@angular/router';
@@ -11,6 +11,9 @@ import { User } from '@/models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
+
+  user = signal<User | null>(null)
+  user$ = new BehaviorSubject<User | null>(null)
 
   constructor(
     private http: HttpClient,
@@ -26,7 +29,7 @@ export class AuthService {
       )
   }
 
-  logout(){
+  logout() {
     this.tokenService.remove();
     this.router.navigate(['/login']);
   }
@@ -35,7 +38,7 @@ export class AuthService {
     return this.http.post(`${environment.API_URL}/auth/register`, { name, email, password })
   }
 
-  registerAndLogin(name: string, email: string, password: string){
+  registerAndLogin(name: string, email: string, password: string) {
     return this.register(name, email, password).pipe(
       switchMap(() => this.login(email, password))
     )
@@ -53,9 +56,18 @@ export class AuthService {
     return this.http.post<{ isAvailable: Boolean }>(`${environment.API_URL}/auth/is-available`, { email })
   }
 
-  getProfile(){
+  getProfile() {
     return this.http
       .get<User>(`${environment.API_URL}/auth/profile`,
         { headers: { Authorization: `Bearer ${this.tokenService.get()}` } })
+      .pipe(
+        tap(response => {
+          //con signal
+          this.user.set(response);
+          //con observable
+          this.user$.next(response);
+        })
+      )
+
   }
 }

@@ -17,15 +17,9 @@ export class NavbarComponent {
   faBell = faBell;
   faInfoCircle = faInfoCircle;
   authService = inject(AuthService)
-  user!:User|null 
+  user = this.authService.user;
 
   doLogout() {
     this.authService.logout();
-  }
-
-  ngOnInit(){
-     this.authService.getProfile().subscribe({ 
-      next:(data) => this.user = data
-     })
   }
 }

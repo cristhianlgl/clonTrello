@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '@/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -9,5 +10,9 @@ import { RouterModule } from '@angular/router';
   templateUrl: './layout.component.html'
 })
 export class LayoutComponent {
+  authService = inject(AuthService)
 
+  ngOnInit(){
+    this.authService.getProfile().subscribe();
+  }
 }
