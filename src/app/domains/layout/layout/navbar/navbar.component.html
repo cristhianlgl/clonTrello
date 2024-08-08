@@ -24,7 +24,7 @@
               >
             </li>
             <li>
-              <app-btn typeBtn="button" color="sky">Create</app-btn>
+              <app-btn typeBtn="button" color="sky" routerLink="/app/users">User</app-btn>
             </li>
           </ul>
         </div>
@@ -55,7 +55,7 @@
 	[cdkConnectedOverlayOrigin]="overlayProfile"
 	[cdkConnectedOverlayOpen]="isOpen"
 	[cdkConnectedOverlayHasBackdrop]="true"
-	(backdropClick)="isOpen = false" 
+	(backdropClick)="isOpen = false"
 	(detach)="isOpen = false">
   <div
   class="z-50 my-4 w-60 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"

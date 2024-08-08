@@ -55,22 +55,27 @@ export const routes: Routes = [
       },
       {
         path: 'boards',
+        canActivate: [authGuard],
         component: BoardsComponent
       },
       {
         path: 'board',
+        canActivate: [authGuard],
         component: BoardComponent
       },
       {
         path: 'table',
+        canActivate: [authGuard],
         component: TableComponent
       },
       {
         path: 'scroll',
+        canActivate: [authGuard],
         component: ScrollComponent
       },
       {
         path: 'users',
+        canActivate: [authGuard],
         component: UsersTableComponent
       }
     ]

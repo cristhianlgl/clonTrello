@@ -3,17 +3,17 @@ import { TokenService } from '@/services/token.service';
 import { inject } from '@angular/core';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const token = inject(TokenService).get();
+  const isValidToken = inject(TokenService).isValid();
   const router = inject(Router);
-  if(token)
+  if(isValidToken)
     return true;
   return router.createUrlTree(['/login']);
 };
 
 export const redirectGuard: CanActivateFn = (route, state) => {
-  const token = inject(TokenService).get();
+  const isValidToken = inject(TokenService).isValid();
   const router = inject(Router);
-  if(token)
+  if(isValidToken)
     return router.createUrlTree(['/app/boards']);
   return true;
 };

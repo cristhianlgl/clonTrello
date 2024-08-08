@@ -4,12 +4,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBell, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { BtnComponent } from '@/shared/componets/btn/btn.component';
 import { AuthService } from '@/services/auth.service';
-import { User } from '@/models/user.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [BtnComponent, OverlayModule, FontAwesomeModule],
+  imports: [BtnComponent, OverlayModule, FontAwesomeModule, RouterLink],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
