@@ -26,12 +26,15 @@ export class AuthService {
     return this.http
       .post<Token>(`${environment.API_URL}/auth/login`, { email, password })
       .pipe(
-        tap((response) => this.tokenService.save(response.access_token))
+        tap((response) => {
+          this.tokenService.saveAccess(response.access_token);
+          this.tokenService.saveRefresh(response.refresh_token);
+        })
       )
   }
 
   logout() {
-    this.tokenService.remove();
+    this.tokenService.removeAccess();
     this.router.navigate(['/login']);
   }
 
@@ -57,9 +60,19 @@ export class AuthService {
     return this.http.post<{ isAvailable: Boolean }>(`${environment.API_URL}/auth/is-available`, { email })
   }
 
+  refreshToken(refreshToken: string) {
+    return this.http.post<Token>(`${environment.API_URL}/auth/refresh-token`, { refreshToken })
+      .pipe(
+        tap((response) => {
+          this.tokenService.saveAccess(response.access_token);
+          this.tokenService.saveRefresh(response.refresh_token);
+        })
+      )
+  }
+
   getProfile() {
     return this.http
-      .get<User>(`${environment.API_URL}/auth/profile`, {context: checkToken()})
+      .get<User>(`${environment.API_URL}/auth/profile`, { context: checkToken() })
       .pipe(
         tap(response => {
           //con signal

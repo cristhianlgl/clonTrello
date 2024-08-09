@@ -10,7 +10,7 @@ import { checkToken } from '@/interceptors/token.interceptor';
 })
 export class UserService {
 
-  private token = inject(TokenService).get();
+  private token = inject(TokenService).getAccess();
   private httpClient = inject(HttpClient);
 
   getAll() {
