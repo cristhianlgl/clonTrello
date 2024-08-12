@@ -5,13 +5,13 @@ import { inject } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 
 const CHECK_TOKEN = new HttpContextToken<Boolean>(() => false);
-const tokenServices = inject(TokenService);
 
 export function checkToken() {
   return new HttpContext().set(CHECK_TOKEN, true);
 }
 
 function updateAccessTokenAndRefreshToken(req: HttpRequest<unknown>, next: HttpHandlerFn):Observable<HttpEvent<unknown>> {
+  const tokenServices = inject(TokenService);
   const refreshToken = tokenServices.getRefresh();
   const authService = inject(AuthService)
   const isValidRefreshToken = tokenServices.isValidRefreshToken();
@@ -25,18 +25,18 @@ function updateAccessTokenAndRefreshToken(req: HttpRequest<unknown>, next: HttpH
 }
 
 function addAuthHeader(req: HttpRequest<unknown>, next: HttpHandlerFn):Observable<HttpEvent<unknown>> {
-  // const isValidToken = tokenServices.isValidAccessToken();
-  // if (isValidToken) {
-  //   const authRequest = req.clone({
-  //     headers: req.headers.set('Authorization', `Bearer ${tokenServices.getAccess()}`)
-  //   })
-  //   return next(authRequest);
-  // }
-  // return updateAccessTokenAndRefreshToken(req, next);
-  return next(req);
+  const tokenServices = inject(TokenService);
+  const isValidToken = tokenServices.isValidAccessToken();
+  if (isValidToken) {
+    const authRequest = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${tokenServices.getAccess()}`)
+    })
+    return next(authRequest);
+  }
+  return updateAccessTokenAndRefreshToken(req, next);
 }
 
-export const tokenInterceptor: HttpInterceptorFn = (req, next) =>
-  req.context.get(CHECK_TOKEN)
+export const tokenInterceptor: HttpInterceptorFn = (req, next) => 
+  req.context.get(CHECK_TOKEN) 
     ? addAuthHeader(req, next)
-    : next(req)
+    : next(req);

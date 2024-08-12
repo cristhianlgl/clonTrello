@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { getCookie, setCookie, removeCookie } from 'typescript-cookie';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +10,6 @@ export class TokenService {
 
   private nameAccessToken: string = 'token-trello';
   private nameRefreshToken: string = 'refresh-token-trello';
-  authService = inject(AuthService);
 
   saveAccess(token: string) {
     setCookie(this.nameAccessToken, token, { expires: 365, path: '/' });
@@ -47,7 +45,6 @@ export class TokenService {
     const tokenDate = new Date(0);
     const today = new Date();
     tokenDate.setUTCSeconds(tokenDecode?.exp);
-    console.log(tokenDate.getHours(), ' - ', today.getHours())
     return tokenDate.getTime() > today.getTime();
   }
 }
