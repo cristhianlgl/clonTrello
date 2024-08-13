@@ -7,11 +7,13 @@ import { faClock, faAngleUp, faAngleDown,faGear, faUsers, faBorderAll, faHeart }
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
 import { MeService } from '@/services/me.service';
 import { Board } from '@/models/board.model';
+import { CardColorComponent } from '@/shared/components/card-color/card-color.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-boards',
   standalone: true,
-  imports: [SidebarComponent, FontAwesomeModule, CdkAccordionModule, NgClass],
+  imports: [SidebarComponent, FontAwesomeModule, CdkAccordionModule, NgClass, CardColorComponent, RouterLink],
   templateUrl: './boards.component.html'
 })
 
