@@ -35,6 +35,7 @@ export class AuthService {
 
   logout() {
     this.tokenService.removeAccess();
+    this.tokenService.removeRefresh();
     this.router.navigate(['/login']);
   }
 

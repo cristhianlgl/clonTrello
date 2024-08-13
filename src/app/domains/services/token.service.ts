@@ -31,6 +31,10 @@ export class TokenService {
     removeCookie(this.nameAccessToken);
   }
 
+  removeRefresh() {
+    removeCookie(this.nameRefreshToken);
+  }
+
   isValidAccessToken = () =>
     this.isValid(this.getAccess())
 
