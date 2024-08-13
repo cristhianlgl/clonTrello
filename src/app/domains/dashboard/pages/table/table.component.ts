@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgClass } from '@angular/common';
 import { ProductDataSource } from './data-source-products';
-import { BtnComponent } from '@/shared/componets/btn/btn.component';
+import { BtnComponent } from '@/shared/components/btn/btn.component';
 import { Product } from '@/models/product.model';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';

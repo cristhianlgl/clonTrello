@@ -1,4 +1,4 @@
-import { BtnComponent } from '@/shared/componets/btn/btn.component';
+import { BtnComponent } from '@/shared/components/btn/btn.component';
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';

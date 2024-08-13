@@ -1,7 +1,7 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
-import { SidebarComponent } from '@/shared/componets/sidebar/sidebar.component';
+import { SidebarComponent } from '@/shared/components/sidebar/sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClock, faAngleUp, faAngleDown,faGear, faUsers, faBorderAll, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';

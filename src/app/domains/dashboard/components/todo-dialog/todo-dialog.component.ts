@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {DialogRef, DIALOG_DATA, DialogModule} from '@angular/cdk/dialog';
-import { BtnComponent } from '@/shared/componets/btn/btn.component';
+import { BtnComponent } from '@/shared/components/btn/btn.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClose, faCheckToSlot, faBars, faClock, faCheckSquare, faTag, faUser } from '@fortawesome/free-solid-svg-icons';
 import { TaskModel } from '@/models/task.model';
