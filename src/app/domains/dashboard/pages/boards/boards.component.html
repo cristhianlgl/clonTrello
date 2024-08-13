@@ -29,32 +29,13 @@
                 </div>
             </cdk-accordion-item>
         </cdk-accordion>
-        <cdk-accordion>
-        @for (item of items; track $index) 
-        {
-            <cdk-accordion-item #accordionItem="cdkAccordionItem">
-                <button class="w-full py-1 flex justify-between items-center" type="button"
-                    (click)="accordionItem.toggle()">{{item.label}}
-                    <fa-icon [icon]="accordionItem.expanded ? faAngleUp : faAngleDown"></fa-icon>
-                </button>
-                <div [ngClass]="{ hidden: !accordionItem.expanded, block: accordionItem.expanded }">
-                    <ul>
-                        @for (subItem of item.items; track $index) {
-                            <li>{{subItem.label}}</li>
-                        }
-                    </ul>
-                </div>               
-            </cdk-accordion-item>
-        }
-        </cdk-accordion>
-    </div>
+      </div>
     <div class="w-full">
         <h1 class="text-lg font-bold mb-4"> <fa-icon [icon]="faClock"></fa-icon> Recently viewed</h1>
         <div class="grid grid-cols-4 gap-4">
-            <div class="w-full bg-sky-700 px-4 py-2 rounded text-white font-bold h-24">Board A</div>
-            <div class="w-full bg-sky-700 px-4 py-2 rounded text-white font-bold h-24">Board B</div>
-            <div class="w-full bg-sky-700 px-4 py-2 rounded text-white font-bold h-24">Board C</div>
-            <div class="w-full bg-sky-700 px-4 py-2 rounded text-white font-bold h-24">Board D</div>
+            @for (board of boards(); track $index) {
+                <div class="w-full bg-sky-700 px-4 py-2 rounded text-white font-bold h-24">{{board.title}}</div>
+            }
         </div>
     </div>
 </div>
