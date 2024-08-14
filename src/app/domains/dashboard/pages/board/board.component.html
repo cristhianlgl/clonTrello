@@ -1,14 +1,14 @@
 <div class="flex flex-col h-full bg-sky-600 px-4 pb-4">
     <div>
-        <h2 class="text-xl font-bold text-white my-4">Demo Board</h2>
+        <h2 class="text-xl font-bold text-white my-4">{{board()?.title}}</h2>
     </div>
-    <div class="flex grow overflow-x-scroll h-full" cdkDropList [cdkDropListData]="panels"
+    <div class="flex grow overflow-x-scroll h-full" cdkDropList [cdkDropListData]="board()?.lists"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropHorizontal($event)">
 
         <div class="flex items-start h-full" cdkDropListGroup>
-            <div *ngFor="let panel of panels" class="rounded bg-gray-200 w-72 p-2 mr-3 shrink-0" cdkDrag>
+            <div *ngFor="let list of board()?.lists" class="rounded bg-gray-200 w-72 p-2 mr-3 shrink-0" cdkDrag>
                 <div class="flex justify-between py-1">
-                    <h3 class="text-sm font-bold ml-2">{{panel.title}}</h3>
+                    <h3 class="text-sm font-bold ml-2">{{list.title}}</h3>
 
                     <button class="">
                         <span data-testid="OverflowMenuHorizontalIcon" aria-hidden="true" class="css-snhnyn"
@@ -21,11 +21,11 @@
                             </svg></span>
                     </button>
                 </div>
-                <div class="text-sm mt-2 min-h-4" cdkDropList [cdkDropListData]="panel.tasks"
+                <div class="text-sm mt-2 min-h-4" cdkDropList [cdkDropListData]="list.cards"
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of panel.tasks" 
+                    <div *ngFor="let item of list.cards" 
                         cdkDrag
-                        (click)="openDialog(item, panel.title)"
+                        (click)="openDialog(item, list.title)"
                         class=" example-box bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
                         {{item.title}}
                     </div>

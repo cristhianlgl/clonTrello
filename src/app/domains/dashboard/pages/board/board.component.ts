@@ -1,19 +1,16 @@
-import { Component} from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { NgFor } from '@angular/common';
-import {
-  CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDrag, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem, } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Dialog } from '@angular/cdk/dialog';
 import { TodoDialogComponent } from '@/dashboard/components/todo-dialog/todo-dialog.component';
 import { TaskModel } from '@/models/task.model';
 import { PanelModel } from '@/models/panel.model';
+import { ActivatedRoute } from '@angular/router';
+import { BoardService } from '@/services/board.service';
+import { Board } from '@/models/board.model';
+import { Card } from '@/models/card.model';
 
 @Component({
   selector: 'app-board',
@@ -30,8 +27,19 @@ import { PanelModel } from '@/models/panel.model';
 })
 export class BoardComponent {
 
-  constructor(public dialog: Dialog) {
+  private boardService =  inject(BoardService);
+  board = signal<Board | null>(null);
 
+  constructor (
+      public dialog: Dialog,
+      private activatedRoute: ActivatedRoute
+    ) {
+      activatedRoute.paramMap.subscribe(param => {
+        const id = param.get('id');
+        if(id){
+          this.getBoard(id);
+        }
+      })
   }
 
   faPlus = faPlus;
@@ -57,7 +65,13 @@ export class BoardComponent {
     },
   ];
 
-  drop(event: CdkDragDrop<TaskModel[]>) {
+  getBoard(id: string){
+    this.boardService.getById(id).subscribe(data => {
+       this.board.set(data);
+    })
+  }
+
+  drop(event: CdkDragDrop<Card[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
