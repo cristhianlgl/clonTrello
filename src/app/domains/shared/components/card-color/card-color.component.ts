@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { colors, COLORS } from '@/models/colors.model';
 
 @Component({
   selector: 'app-card-color',
@@ -9,16 +10,9 @@ import { NgClass } from '@angular/common';
 })
 export class CardColorComponent {
 
-  @Input() color: keyof typeof this.colorsList = 'blue';
+  @Input() color: colors = 'blue';
 
-  colorsList = {
-    blue: 'bg-blue-700 hover:bg-blue-800 text-white',
-    sky: 'bg-sky-700 hover:bg-sky-800 text-white',
-    yellow: 'bg-yellow-700 hover:bg-yellow-800 text-white',
-    gray: 'bg-gray-700 hover:bg-gray-800 text-white',
-    violet: 'bg-violet-700 hover:bg-violet-800 text-white',
-    green: 'bg-green-700 hover:bg-green-800 text-white',
-  };
+  colorsList = COLORS;
 
   getColor() {
     return this.colorsList[this.color];

@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { colors, COLORS } from '@/models/colors.model';
 
 @Component({
   selector: 'app-btn',
@@ -14,16 +15,10 @@ export class BtnComponent {
   @Input() disabled = false;
   @Input() loading = false;
   @Input() typeBtn: 'button' | 'reset' | 'submit' = 'button';
-  @Input() color: keyof typeof this.colorsList = 'primary';
+  @Input() color:colors = 'primary';
   faSpinner = faSpinner;
    
-  colorsList = {
-    success: 'bg-success-700 hover:bg-success-800 focus:ring-success-300 text-white',
-    danger: 'bg-red-700 hover:bg-red-800 focus:ring-red-300 text-white',
-    'gray-light': 'bg-gray-200 hover:bg-gray-500 focus:ring-gray-50 text-gray-700',
-    primary: 'bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 text-white',
-    sky: 'bg-sky-700 hover:bg-sky-800 focus:ring-sky-300 text-white'
-  };
+  colorsList = COLORS;
   
   get colors() {
     return this.colorsList[this.color];
