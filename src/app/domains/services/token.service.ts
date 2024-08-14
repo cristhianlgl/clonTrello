@@ -49,6 +49,12 @@ export class TokenService {
     const tokenDate = new Date(0);
     const today = new Date();
     tokenDate.setUTCSeconds(tokenDecode?.exp);
-    return tokenDate.getTime() > today.getTime();
+    let isTokenValid:boolean = tokenDate.getTime() > today.getTime();
+    if(!isTokenValid)
+    {
+      this.removeAccess();
+      this.removeRefresh();
+    }
+    return isTokenValid ;
   }
 }
