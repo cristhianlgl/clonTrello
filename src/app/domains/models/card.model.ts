@@ -9,3 +9,11 @@ export interface Card {
     updatedAt: string,
     list: List
 }
+
+export interface CardDto{
+    title?: string,
+    description?: string,
+    position?: number,
+    listId?: string,
+    boardId?: string
+}

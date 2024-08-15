@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BoardService } from '@/services/board.service';
 import { Board } from '@/models/board.model';
 import { Card } from '@/models/card.model';
+import { CardService } from '@/services/card.service';
 
 @Component({
   selector: 'app-board',
@@ -27,28 +28,29 @@ import { Card } from '@/models/card.model';
 })
 export class BoardComponent {
 
-  private boardService =  inject(BoardService);
+  private boardService = inject(BoardService);
+  private cardService = inject(CardService);
+  private bufferSpace = 65535;
   board = signal<Board | null>(null);
   faPlus = faPlus;
 
-  constructor (
-      public dialog: Dialog,
-      private activatedRoute: ActivatedRoute
-    )
-    {  }
+  constructor(
+    public dialog: Dialog,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
-  ngOnInit(){
-      this.activatedRoute.paramMap.subscribe(param => {
-        const id = param.get('id');
-        if(id){
-          this.getBoard(id);
-        }
-      })
+  ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(param => {
+      const id = param.get('id');
+      if (id) {
+        this.getBoard(id);
+      }
+    })
   }
 
-  getBoard(id: string){
+  getBoard(id: string) {
     this.boardService.getById(id).subscribe(data => {
-       this.board.set(data);
+      this.board.set(data);
     })
   }
 
@@ -63,27 +65,44 @@ export class BoardComponent {
         event.currentIndex
       );
     }
-    const result = this.getPosition(event.container.data, event.currentIndex)
-    console.log(result)
+    const position = this.getPosition(event.container.data, event.currentIndex)
+    const card = event.container.data[event.currentIndex];
+    this.updatePosition(card, position)
   }
 
-  getPosition(cards:Card[], index: number){
-    if(cards.length <= 1)
-      return "New"
-    if(index === 0)
-      return "Top"
-    if( index === cards.length - 1)
-      return "bottom"
-    return "middlee"
+  getPosition(cards: Card[], currentIndex: number) {
+    if (cards.length <= 1)
+      return this.bufferSpace;
+
+    if (currentIndex === 0) {
+      const onTopPosition = cards[1].position
+      return onTopPosition / 2;
+    }
+
+    if (currentIndex === cards.length - 1) {
+      const onBottomPosition = cards[currentIndex - 1].position
+      return (onBottomPosition) + this.bufferSpace;
+    }
+
+    const onPreviousPosition = cards[currentIndex - 1].position;
+    const onNextPosition = cards[currentIndex + 1].position;
+    return (onPreviousPosition + onNextPosition) / 2;
   }
 
   dropHorizontal(event: CdkDragDrop<any>) {
-    console.log(event)
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
   addPanel(title: string) {
     //this.board.update(item => item?.lists.push({title: title, cards: []}))
+  }
+
+  updatePosition(card: Card, position: number){
+    card.position = position;
+    this.cardService.update(card.id, { position })
+      .subscribe(data => {
+        console.log(data);
+      })
   }
 
   openDialog(task: Card, titlePanel: string): void {
