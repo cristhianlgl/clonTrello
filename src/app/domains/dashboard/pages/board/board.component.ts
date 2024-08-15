@@ -5,8 +5,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Dialog } from '@angular/cdk/dialog';
 import { TodoDialogComponent } from '@/dashboard/components/todo-dialog/todo-dialog.component';
-import { TaskModel } from '@/models/task.model';
-import { PanelModel } from '@/models/panel.model';
 import { ActivatedRoute } from '@angular/router';
 import { BoardService } from '@/services/board.service';
 import { Board } from '@/models/board.model';
@@ -66,8 +64,9 @@ export class BoardComponent {
       );
     }
     const position = this.getPosition(event.container.data, event.currentIndex)
+    const listId = event.container.id;
     const card = event.container.data[event.currentIndex];
-    this.updatePosition(card, position)
+    this.updatePosition(card, position, listId)
   }
 
   getPosition(cards: Card[], currentIndex: number) {
@@ -97,12 +96,10 @@ export class BoardComponent {
     //this.board.update(item => item?.lists.push({title: title, cards: []}))
   }
 
-  updatePosition(card: Card, position: number){
+  updatePosition(card: Card, position: number, listId: string) {
     card.position = position;
-    this.cardService.update(card.id, { position })
-      .subscribe(data => {
-        console.log(data);
-      })
+    this.cardService.update(card.id, { position, listId })
+      .subscribe()
   }
 
   openDialog(task: Card, titlePanel: string): void {

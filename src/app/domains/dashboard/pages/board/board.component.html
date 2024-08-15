@@ -21,7 +21,7 @@
                             </svg></span>
                     </button>
                 </div>
-                <div class="text-sm mt-2 min-h-4" cdkDropList [cdkDropListData]="list.cards"
+                <div class="text-sm mt-2 min-h-4" [id]="list.id" cdkDropList [cdkDropListData]="list.cards"
                     (cdkDropListDropped)="drop($event)">
                     <div *ngFor="let item of list.cards" 
                         cdkDrag
