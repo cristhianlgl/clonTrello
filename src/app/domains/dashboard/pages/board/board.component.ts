@@ -29,41 +29,22 @@ export class BoardComponent {
 
   private boardService =  inject(BoardService);
   board = signal<Board | null>(null);
+  faPlus = faPlus;
 
   constructor (
       public dialog: Dialog,
       private activatedRoute: ActivatedRoute
-    ) {
-      activatedRoute.paramMap.subscribe(param => {
+    )
+    {  }
+
+  ngOnInit(){
+      this.activatedRoute.paramMap.subscribe(param => {
         const id = param.get('id');
         if(id){
           this.getBoard(id);
         }
       })
   }
-
-  faPlus = faPlus;
-  panels: PanelModel[] = [
-    {
-      title: 'To do', tasks: [
-        { id: '1', title: 'Get to work' },
-        { id: '2', title: 'Pick up groceries' },
-        { id: '3', title: 'Fall asleep' }]
-    },
-    {
-      title: 'Doing', tasks: [
-        { id: '1', title: 'Go home' },
-        { id: '2', title: 'Check e-mail' },
-        { id: '3', title: 'Walk dog' }]
-    },
-    { title: 'Pending', tasks: [] },
-    {
-      title: 'Done', tasks: [
-        { id: '1', title: 'Get up' },
-        { id: '2', title: 'Brush teeth' },
-        { id: '3', title: 'Take a shower' }]
-    },
-  ];
 
   getBoard(id: string){
     this.boardService.getById(id).subscribe(data => {
@@ -82,6 +63,18 @@ export class BoardComponent {
         event.currentIndex
       );
     }
+    const result = this.getPosition(event.container.data, event.currentIndex)
+    console.log(result)
+  }
+
+  getPosition(cards:Card[], index: number){
+    if(cards.length <= 1)
+      return "New"
+    if(index === 0)
+      return "Top"
+    if( index === cards.length - 1)
+      return "bottom"
+    return "middlee"
   }
 
   dropHorizontal(event: CdkDragDrop<any>) {
@@ -90,10 +83,10 @@ export class BoardComponent {
   }
 
   addPanel(title: string) {
-    this.panels.push({ title: title, tasks: [] })
+    //this.board.update(item => item?.lists.push({title: title, cards: []}))
   }
 
-  openDialog(task: TaskModel, titlePanel: string): void {
+  openDialog(task: Card, titlePanel: string): void {
     const dialogRef = this.dialog.open<string>(TodoDialogComponent, {
       minWidth: '500px',
       maxWidth: '50%',
