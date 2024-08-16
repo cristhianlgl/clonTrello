@@ -4,6 +4,7 @@ export const COLORS:Record<string,string>  = {
     blue: 'bg-blue-700 hover:bg-blue-800 text-white focus:ring-blue-30',
     red: 'bg-red-700 hover:bg-red-800 text-white focus:ring-red-30',
     yellow: 'bg-yellow-700 hover:bg-yellow-800 text-white focus:ring-yellow-30',
+    pink: 'bg-pink-700 hover:bg-pink-800 text-white focus:ring-pink-30',
     gray: 'bg-gray-700 hover:bg-gray-800 text-white focus:ring-gray-30',
     violet: 'bg-violet-700 hover:bg-violet-800 text-white focus:ring-violet-30',
     green: 'bg-green-700 hover:bg-green-800 text-white focus:ring-green-30',
@@ -12,4 +13,19 @@ export const COLORS:Record<string,string>  = {
     'gray-light': 'bg-gray-200 hover:bg-gray-500 focus:ring-gray-50 text-gray-700',
     primary: 'bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 text-white',
     sky: 'bg-sky-700 hover:bg-sky-800 focus:ring-sky-300 text-white'
+  };
+
+  export const COLORS_ONLY_BG:Record<string,string>  = {
+    blue: 'bg-blue-700',
+    red: 'bg-red-700',
+    yellow: 'bg-yellow-700',
+    pink: 'bg-pink-700',
+    gray: 'bg-gray-700',
+    violet: 'bg-violet-700',
+    green: 'bg-green-700',
+    success: 'bg-success-700',
+    danger: 'bg-red-700',
+    'gray-light': 'bg-gray-200',
+    primary: 'bg-primary-700',
+    sky: 'bg-sky-700'
   };

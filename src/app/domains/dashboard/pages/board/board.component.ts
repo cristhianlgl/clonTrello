@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import { CdkDragDrop, CdkDrag, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem, } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +10,7 @@ import { BoardService } from '@/services/board.service';
 import { Board } from '@/models/board.model';
 import { Card } from '@/models/card.model';
 import { CardService } from '@/services/card.service';
+import { COLORS_ONLY_BG } from '@/models/colors.model';
 
 @Component({
   selector: 'app-board',
@@ -19,7 +20,8 @@ import { CardService } from '@/services/card.service';
     CdkDropList,
     CdkDropListGroup,
     NgFor,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgClass
   ],
   styleUrls: ['./board.component.css'],
   templateUrl: './board.component.html'
@@ -113,6 +115,15 @@ export class BoardComponent {
     dialogRef.closed.subscribe(result => {
       console.log('The dialog was closed', result);
     });
+  }
+
+  colorsList = COLORS_ONLY_BG;
+
+  getColor() {
+    const color = this.board()?.backgroundColor;
+    return color 
+      ? this.colorsList[color]
+      : this.colorsList["blue"];
   }
 
 }

@@ -1,8 +1,8 @@
-<div class="flex flex-col h-full bg-sky-600 px-4 pb-4">
+<div class="flex flex-col h-full pb-4 px-4"  [ngClass]="getColor()">
     <div>
         <h2 class="text-xl font-bold text-white my-4">{{board()?.title}}</h2>
     </div>
-    <div class="flex grow overflow-x-scroll h-full" cdkDropList [cdkDropListData]="board()?.lists"
+    <div class="flex grow overflow-x-scroll h-full text-black" cdkDropList [cdkDropListData]="board()?.lists"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropHorizontal($event)">
 
         <div class="flex items-start h-full" cdkDropListGroup>
