@@ -2,7 +2,7 @@ import { colors, COLORS_ONLY_BG } from '@/models/colors.model';
 import { BoardService } from '@/services/board.service';
 import { BtnComponent } from '@/shared/components/btn/btn.component';
 import { NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -23,6 +23,8 @@ export class BoardFormComponent {
   private formBuilder = inject(FormBuilder);
   private boardService = inject(BoardService);
   private router = inject(Router);
+  
+  @Output() closeOverlay =  new EventEmitter<boolean>();
 
   faCheck = faCheck;
   form = this.formBuilder.nonNullable.group({
@@ -56,7 +58,10 @@ export class BoardFormComponent {
     this.boardService
       .create(title, backgroundColor)
       .subscribe({
-        next: (data) => this.router.navigate(['app/boards',data.id]),
+        next: (data) => {
+          this.router.navigate(['app/boards',data.id]);
+          this.closeOverlay.emit(false);
+        }
       });
   }
 

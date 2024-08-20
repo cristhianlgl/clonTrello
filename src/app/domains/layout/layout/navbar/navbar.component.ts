@@ -25,4 +25,9 @@ export class NavbarComponent {
   doLogout() {
     this.authService.logout();
   }
+
+  closeEmiter(event: boolean) {
+    this.isOpenCreate = event;
+  }
+
 }
