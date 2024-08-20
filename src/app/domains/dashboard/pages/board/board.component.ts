@@ -35,7 +35,6 @@ export class BoardComponent {
 
   private boardService = inject(BoardService);
   private cardService = inject(CardService);
-  private bufferSpace = 65535;
 
   inputTitleCardForm = new FormControl<string>('', {
     nonNullable: false,
@@ -76,29 +75,10 @@ export class BoardComponent {
         event.currentIndex
       );
     }
-    const position = this.getPosition(event.container.data, event.currentIndex)
+    const position = this.boardService.getPosition(event.container.data, event.currentIndex)
     const listId = event.container.id;
     const card = event.container.data[event.currentIndex];
     this.updatePosition(card, position, listId)
-  }
-
-  getPosition(cards: Card[], currentIndex: number) {
-    if (cards.length <= 1)
-      return this.bufferSpace;
-
-    if (currentIndex === 0) {
-      const onTopPosition = cards[1].position
-      return onTopPosition / 2;
-    }
-
-    if (currentIndex === cards.length - 1) {
-      const onBottomPosition = cards[currentIndex - 1].position
-      return (onBottomPosition) + this.bufferSpace;
-    }
-
-    const onPreviousPosition = cards[currentIndex - 1].position;
-    const onNextPosition = cards[currentIndex + 1].position;
-    return (onPreviousPosition + onNextPosition) / 2;
   }
 
   dropHorizontal(event: CdkDragDrop<any>) {
