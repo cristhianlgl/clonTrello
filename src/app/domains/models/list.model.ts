@@ -6,5 +6,6 @@ export interface List{
     position: number,
     creationAt: string,
     updatedAt: string,
-    cards:Card[]
+    cards:Card[],
+    showCardForm?: boolean 
 }

@@ -43,7 +43,7 @@ export class BoardFormComponent {
     'gray',
     'violet',
     'sky',
-    'pink',
+    'gray-light',
   ];
   colors = COLORS_ONLY_BG;
 
