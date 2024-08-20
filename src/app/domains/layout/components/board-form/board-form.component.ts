@@ -1,8 +1,15 @@
-import { COLORS } from '@/models/colors.model';
+import { colors, COLORS_ONLY_BG } from '@/models/colors.model';
+import { BoardService } from '@/services/board.service';
 import { BtnComponent } from '@/shared/components/btn/btn.component';
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  FormControl,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,40 +17,50 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-board-form',
   standalone: true,
   imports: [ReactiveFormsModule, BtnComponent, FontAwesomeModule, NgClass],
-  templateUrl: './board-form.component.html'
+  templateUrl: './board-form.component.html',
 })
 export class BoardFormComponent {
   private formBuilder = inject(FormBuilder);
+  private boardService = inject(BoardService);
+  private router = inject(Router);
+
   faCheck = faCheck;
-  form = this.formBuilder.group({
-    title: ['', [ Validators.required, Validators.minLength(6)]],
-    backgroundColor: ['', [ Validators.required]],
-  })
+  form = this.formBuilder.nonNullable.group({
+    title: ['', [Validators.required]],
+    backgroundColor: new FormControl<colors>('sky', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
-  optionsColors = [
-    { value : 'yellow' },
-    { value : 'blue' },
-    { value : 'green' },
-    { value : 'red' },
-    { value : 'gray' },
-    { value : 'violet' },
-    { value : 'sky' },
-    { value : 'pink' },
-  ]
+  optionsColors: colors[] = [
+    'yellow',
+    'blue',
+    'green',
+    'red',
+    'gray',
+    'violet',
+    'sky',
+    'pink',
+  ];
+  colors = COLORS_ONLY_BG;
 
-  colors = COLORS;
-
-  doSave(){
-    if(!this.form.valid){
+  doSave() {
+    if (!this.form.valid) {
       this.form.markAllAsTouched();
       return;
     }
-    const {title, backgroundColor } = this.form.getRawValue();
-    console.log(title, backgroundColor)
+
+    const { title, backgroundColor } = this.form.getRawValue();
+    console.log(title, backgroundColor);
+    this.boardService
+      .create(title, backgroundColor)
+      .subscribe({
+        next: (data) => this.router.navigate(['app/boards',data.id]),
+      });
   }
 
-  getColors(color:string){
-    return color ? this.colors[color] : this.colors['blue']
+  getColors(color: string) {
+    return color ? this.colors[color] : this.colors['blue'];
   }
-
 }

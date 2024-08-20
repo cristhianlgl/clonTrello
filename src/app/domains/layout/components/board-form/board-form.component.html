@@ -1,27 +1,22 @@
 <form [formGroup]="form" novalidate class="space-y-4" (ngSubmit)="doSave()">
 
-    <div class="flex flex-col justify-center space-y-3">
-        <div class="flex justify-center flex-wrap">
-            @for (optionColor of optionsColors; track $index) {
-                <div class="flex items-center mx-2 my-1">
-                    <input 
-                       [id]="[optionColor.value,'-radio']" 
-                       type="radio" 
-                       [value]="optionColor.value" 
-                       name="backgroundColor" 
-                       formControlName="backgroundColor"
-                       class="hidden peer" />
-                    <label [for]="[optionColor.value,'-radio']"
-                        class="inline-flex items-center justify-center w-8 h-8 text-transparent border border-gray-200 rounded cursor-pointer peer-checked:text-white"
-                        [ngClass]="getColors(optionColor.value)">
-                        <fa-icon [icon]="faCheck"></fa-icon>
-                    </label>
-                </div>
-            }         
-        </div>
-        <input formControlName="title" placeholder="Enter title" type="text"
-            class="w-full rounded bg-gray-100 border-gray-300 border-2" />
-        <app-btn typeBtn="submit" color="success"> Create </app-btn>
+  <div class="flex flex-col justify-center space-y-3">
+    <div class="flex justify-center flex-wrap">
+      @for (optionColor of optionsColors; track $index) {
+      <div class="flex items-center mx-2 my-1">
+        <input [id]="optionColor +'-radio'" type="radio" [value]="optionColor" name="backgroundColor"
+          formControlName="backgroundColor" class="hidden peer" />
+        <label [for]="optionColor +'-radio'"
+          class="inline-flex items-center justify-center w-8 h-8 text-transparent border border-gray-200 rounded cursor-pointer peer-checked:text-white"
+          [ngClass]="getColors(optionColor)">
+          <fa-icon [icon]="faCheck"></fa-icon>
+        </label>
+      </div>
+      }
     </div>
+    <input formControlName="title" placeholder="Enter title" type="text"
+      class="w-full rounded bg-gray-100 border-gray-300 border-2" />
+    <app-btn typeBtn="submit" color="success"> Create </app-btn>
+  </div>
 
 </form>

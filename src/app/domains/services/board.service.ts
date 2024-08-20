@@ -14,4 +14,9 @@ export class BoardService {
   getById(id: Board['id']) {
     return this.http.get<Board>(`${environment.API_URL}/boards/${id}`, { context: checkToken() })
   }
+
+  create(title: string , backgroundColor: string) {
+    return this.http
+      .post<Board>(`${environment.API_URL}/boards`, { title, backgroundColor}, {context: checkToken()});
+  }
 }
