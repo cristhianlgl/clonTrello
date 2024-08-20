@@ -8,7 +8,7 @@ import { TodoDialogComponent } from '@/dashboard/components/todo-dialog/todo-dia
 import { ActivatedRoute } from '@angular/router';
 import { BoardService } from '@/services/board.service';
 import { Board } from '@/models/board.model';
-import { Card } from '@/models/card.model';
+import { Card, CreateCardDto } from '@/models/card.model';
 import { CardService } from '@/services/card.service';
 import { COLORS_ONLY_BG } from '@/models/colors.model';
 import { List } from '@/models/list.model';
@@ -37,7 +37,7 @@ export class BoardComponent {
   private cardService = inject(CardService);
 
   inputTitleCardForm = new FormControl<string>('', {
-    nonNullable: false,
+    nonNullable: true,
     validators: [Validators.required]
   })
 
@@ -126,8 +126,24 @@ export class BoardComponent {
 
   createList(list: List){
     const title = this.inputTitleCardForm.value;
-    console.log(title)
-    //list.cards.push()
+    const board = this.board(); 
+    if(board){
+      const newCard: CreateCardDto = 
+      {
+        title: title,
+        listId: list.id,
+        boardId: board.id,
+        position: this.boardService.getNewCardPosicion(list.cards)
+      } 
+      this.cardService.create(newCard).subscribe({
+        next: data => {
+          list.cards.push(data);
+          this.inputTitleCardForm.setValue('');
+        },
+        error: error => console.log(error)
+      });
+
+    }
   }
 
   closeCardForm(list: List){

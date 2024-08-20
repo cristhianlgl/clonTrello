@@ -41,4 +41,10 @@ export class BoardService {
     const onNextPosition = cards[currentIndex + 1].position;
     return (onPreviousPosition + onNextPosition) / 2;
   }
+
+  getNewCardPosicion(cards: Card[]){
+    if(cards.length <= 0)
+      return this.bufferSpace;
+    return cards[cards.length - 1].position + this.bufferSpace;
+  }
 }
