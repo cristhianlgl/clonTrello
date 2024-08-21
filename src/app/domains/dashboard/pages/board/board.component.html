@@ -8,7 +8,7 @@
         <div class="flex items-start h-full" cdkDropListGroup>
             <div *ngFor="let list of board()?.lists" class="rounded bg-gray-200 w-72 p-2 mr-3 shrink-0" cdkDrag>
                 <div class="flex justify-between py-1">
-                    <h3 class="text-sm font-bold ml-2">{{list.title}}</h3>
+                    <h3 class="text-sm font-bold ml-2">{{list.title}} - {{list.position}}</h3>
 
                     <button class="">
                         <span data-testid="OverflowMenuHorizontalIcon" aria-hidden="true" class="css-snhnyn"
@@ -40,16 +40,28 @@
                     @else{
                         <textarea [formControl]="inputTitleCardForm" class="w-full resize-none rounded shadow-md bg-white border-gray-300 mb-2"></textarea>
                         <div class="flex justify-between">
-                            <app-btn (click)="createList(list)" color="success">Create</app-btn>
+                            <app-btn (click)="addCard(list)" color="success">Add Card</app-btn>
                             <app-btn (click)="closeCardForm(list)" color="gray-light">Close</app-btn>
                         </div>
                     }
                 </div>
             </div>
-            <button class="bg-white/30 w-56 h-10 rounded hover:bg-white/20 text-white"
-                (click)="addPanel('New Panel')">
-                <fa-icon [icon]="faPlus"></fa-icon>
-                <span> Add Panel</span></button>
+            @if(!showAddList){
+                <button class="bg-white/30 w-56 h-10 rounded hover:bg-white/20 text-white"
+                    (click)="showAddList = !showAddList">
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                    <span> Add Panel</span>
+                </button>
+            }
+            @else{
+                <div class="rounded bg-gray-200 w-72 p-2 mr-3 shrink-0">
+                    <input [formControl]="inputTitleListForm" class="w-full resize-none rounded shadow-md bg-white border-gray-300 mb-2"/>
+                        <div class="flex justify-between">
+                            <app-btn (click)="addList()" color="success">Add List</app-btn>
+                            <app-btn (click)="closeListForm()" color="gray-light">Close</app-btn>
+                        </div>
+                </div>
+            }
         </div>
 
     </div>

@@ -9,3 +9,9 @@ export interface List{
     cards:Card[],
     showCardForm?: boolean 
 }
+
+export interface CreateListDTO {
+    title: string,
+    position: number,
+    boardId: string
+}
