@@ -29,3 +29,18 @@ export const COLORS:Record<string,string>  = {
     primary: 'bg-primary-400',
     sky: 'bg-sky-400'
   };
+
+  export const COLORS_NAVBAR:Record<string,string>  = {
+    blue: 'bg-blue-500',
+    red: 'bg-red-500',
+    yellow: 'bg-amber-400',
+    pink: 'bg-pink-500',
+    gray: 'bg-gray-500',
+    violet: 'bg-violet-500',
+    green: 'bg-green-500',
+    success: 'bg-success-700',
+    danger: 'bg-red-700',
+    'gray-light': 'bg-gray-200',
+    primary: 'bg-primary-700',
+    sky: 'bg-sky-700'
+  };

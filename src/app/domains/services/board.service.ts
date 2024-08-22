@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Board } from '@/models/board.model';
 import { checkToken } from '@/interceptors/token.interceptor';
 import { Card } from '@/models/card.model';
 import { List } from '@/models/list.model';
+import { colors } from '@/models/colors.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { List } from '@/models/list.model';
 export class BoardService {
 
   private bufferSpace = 65535;
+  navbarBackground = signal<colors>('sky');
 
   constructor(private http: HttpClient) { }
 
@@ -47,5 +49,9 @@ export class BoardService {
     if(elements.length <= 0)
       return this.bufferSpace;
     return elements[elements.length - 1].position + this.bufferSpace;
+  }
+
+  setNavbarBackground(color: colors){
+    this.navbarBackground.update( navBarColor => navBarColor = color)
   }
 }

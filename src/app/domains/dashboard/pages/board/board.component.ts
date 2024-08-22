@@ -68,10 +68,15 @@ export class BoardComponent {
     })
   }
 
+  ngOnDestroy(){
+    this.boardService.setNavbarBackground('sky');
+  }
+
   getBoard(id: string) {
     this.boardService.getById(id).subscribe({ 
         next: data => {
           this.board.set(data);
+          this.boardService.setNavbarBackground(data.backgroundColor);
         },
         error: () =>  this.router.navigate(['/app/boards'])
     })
